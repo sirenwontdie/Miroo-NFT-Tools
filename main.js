@@ -2,12 +2,10 @@ const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
-const { registerHandlers } = require('./ipc-handlers');
-
 let mainWindow = null;
 let dataDir = null;
 
-// Set data directory
+// Set data directory BEFORE requiring any lib files
 function getDataDir() {
   if (dataDir) return dataDir;
   
@@ -26,6 +24,11 @@ function getDataDir() {
   
   return dataDir;
 }
+
+// Set NFT_DATA_DIR env var BEFORE requiring lib modules
+process.env.NFT_DATA_DIR = getDataDir();
+
+const { registerHandlers } = require('./ipc-handlers');
 
 function createWindow() {
   mainWindow = new BrowserWindow({
