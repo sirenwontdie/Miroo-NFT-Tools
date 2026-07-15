@@ -17,6 +17,15 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
+    
+    - name: Update version in package.json
+      run: |
+        $version = "2.0.${{ github.run_number }}"
+        $json = Get-Content package.json -Raw | ConvertFrom-Json
+        $json.version = $version
+        $json | ConvertTo-Json -Depth 10 | Set-Content package.json
+        Write-Output "Updated version to $version"
+      shell: pwsh
         
     - name: Install Electron dependencies
       run: npm install
