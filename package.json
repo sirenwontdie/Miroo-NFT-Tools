@@ -18,13 +18,18 @@
     "files": [
       "main.js",
       "preload.js",
+      "ipc-handlers.js",
+      "lib/**/*",
+      "dist/**/*",
       "resources/**/*"
     ],
     "win": {
       "target": [
         {
           "target": "nsis",
-          "arch": ["x64"]
+          "arch": [
+            "x64"
+          ]
         }
       ],
       "icon": "resources/icon.ico",
@@ -41,23 +46,16 @@
       "installerHeaderIcon": "resources/icon.ico",
       "shortcutName": "Miroo NFT Tools"
     },
-    "extraResources": [
-      {
-        "from": "next-app/.next/standalone",
-        "to": "next-build"
-      },
-      {
-        "from": "next-app/.next/static",
-        "to": "next-build/.next/static"
-      },
-      {
-        "from": "next-app/public",
-        "to": "next-build/public"
-      }
-    ]
+    "extraResources": []
   },
   "devDependencies": {
     "electron": "^28.0.0",
     "electron-builder": "^24.9.1"
+  },
+  "dependencies": {
+    "archiver": "^7.0.1",
+    "better-sqlite3": "^11.10.0",
+    "form-data": "^4.0.6",
+    "sharp": "^0.33.5"
   }
 }
