@@ -12,37 +12,12 @@ jobs:
     steps:
     - name: Checkout Miroo NFT Tools
       uses: actions/checkout@v4
-      
-    - name: Checkout Next.js App (Miroo-NFT-App)
-      uses: actions/checkout@v4
-      with:
-        repository: sirenwontdie/Miroo-NFT-App
-        path: next-app
     
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '20'
         
-    - name: Install Next.js dependencies
-      working-directory: ./next-app
-      run: npm install
-      
-    - name: Build Next.js (standalone)
-      working-directory: ./next-app
-      run: npm run build
-      
-    - name: Verify standalone output
-      working-directory: ./next-app
-      run: |
-        if (Test-Path ".next/standalone/server.js") {
-          Write-Output "✓ Standalone build successful"
-        } else {
-          Write-Error "✗ Standalone output missing"
-          exit 1
-        }
-      shell: pwsh
-      
     - name: Install Electron dependencies
       run: npm install
       
@@ -61,8 +36,8 @@ jobs:
       if: github.ref == 'refs/heads/main'
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: v1.0.${{ github.run_number }}
-        name: Miroo NFT Tools v1.0.${{ github.run_number }}
+        tag_name: v2.0.${{ github.run_number }}
+        name: Miroo NFT Tools v2.0.${{ github.run_number }}
         files: dist/*.exe
         draft: false
         prerelease: false
