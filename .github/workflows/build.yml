@@ -1,0 +1,69 @@
+name: Build Windows Installer
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout Miroo NFT Tools
+      uses: actions/checkout@v4
+      
+    - name: Checkout Next.js App (Bagus-Mau-Beraksi)
+      uses: actions/checkout@v4
+      with:
+        repository: sirenwontdie/Bagus-Mau-Beraksi
+        path: next-app
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        
+    - name: Install Next.js dependencies
+      working-directory: ./next-app
+      run: npm install
+      
+    - name: Build Next.js (standalone)
+      working-directory: ./next-app
+      run: npm run build
+      
+    - name: Verify standalone output
+      working-directory: ./next-app
+      run: |
+        if (Test-Path ".next/standalone/server.js") {
+          Write-Output "✓ Standalone build successful"
+        } else {
+          Write-Error "✗ Standalone output missing"
+          exit 1
+        }
+      shell: pwsh
+      
+    - name: Install Electron dependencies
+      run: npm install
+      
+    - name: Build Electron installer
+      run: npm run build:win
+      
+    - name: Upload installer artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Miroo-NFT-Tools-Setup
+        path: dist/*.exe
+        
+    - name: Create Release
+      if: github.ref == 'refs/heads/main'
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v1.0.${{ github.run_number }}
+        name: Miroo NFT Tools v1.0.${{ github.run_number }}
+        files: dist/*.exe
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

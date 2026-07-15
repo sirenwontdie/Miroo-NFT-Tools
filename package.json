@@ -1,0 +1,63 @@
+{
+  "name": "miroo-nft-tools",
+  "version": "1.0.0",
+  "description": "Miroo NFT Tools — NFT Trait Generator & Collection Manager",
+  "main": "main.js",
+  "author": "Miroo",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "build:win": "electron-builder --win"
+  },
+  "build": {
+    "appId": "com.miroo.nft-tools",
+    "productName": "Miroo NFT Tools",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "resources/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "resources/icon.ico",
+      "publisherName": "Miroo"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "installerIcon": "resources/icon.ico",
+      "uninstallerIcon": "resources/icon.ico",
+      "installerHeaderIcon": "resources/icon.ico",
+      "shortcutName": "Miroo NFT Tools"
+    },
+    "extraResources": [
+      {
+        "from": "next-app/.next/standalone",
+        "to": "next-build"
+      },
+      {
+        "from": "next-app/.next/static",
+        "to": "next-build/.next/static"
+      },
+      {
+        "from": "next-app/public",
+        "to": "next-build/public"
+      }
+    ]
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1"
+  }
+}
