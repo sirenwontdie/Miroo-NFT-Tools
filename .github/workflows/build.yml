@@ -13,6 +13,14 @@ jobs:
     - name: Checkout Miroo NFT Tools
       uses: actions/checkout@v4
     
+    - name: Clean cache (force fresh build)
+      run: |
+        Remove-Item -Recurse -Force node_modules -ErrorAction SilentlyContinue
+        Remove-Item -Recurse -Force release -ErrorAction SilentlyContinue
+        Remove-Item -Recurse -Force dist -ErrorAction SilentlyContinue
+        Write-Output "✓ Cleaned all caches"
+      shell: pwsh
+    
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
