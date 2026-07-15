@@ -39,7 +39,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Miroo-NFT-Tools-Setup
-        path: dist/*.exe
+        path: release/*.exe
         
     - name: Create Release
       if: github.ref == 'refs/heads/main'
@@ -47,7 +47,7 @@ jobs:
       with:
         tag_name: v2.0.${{ github.run_number }}
         name: Miroo NFT Tools v2.0.${{ github.run_number }}
-        files: dist/*.exe
+        files: release/*.exe
         draft: false
         prerelease: false
       env:

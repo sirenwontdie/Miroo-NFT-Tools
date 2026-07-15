@@ -13,7 +13,7 @@
     "appId": "com.miroo.nft-tools",
     "productName": "Miroo NFT Tools",
     "directories": {
-      "output": "dist"
+      "output": "release"
     },
     "files": [
       "main.js",
