@@ -13,12 +13,11 @@ jobs:
     - name: Checkout Miroo NFT Tools
       uses: actions/checkout@v4
       
-    - name: Checkout Next.js App (Bagus-Mau-Beraksi)
+    - name: Checkout Next.js App (Miroo-NFT-App)
       uses: actions/checkout@v4
       with:
-        repository: sirenwontdie/Bagus-Mau-Beraksi
+        repository: sirenwontdie/Miroo-NFT-App
         path: next-app
-        token: ${{ secrets.GITHUB_TOKEN }}
     
     - name: Setup Node.js
       uses: actions/setup-node@v4
